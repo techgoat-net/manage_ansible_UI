@@ -31,14 +31,14 @@ STARTNUM=0
 
 # Auslesen des Verzeichnisses (per for-loop)  und auflisten der verfügbaren Ansible-Versionen
 # Hierbei wird ein Array angelegt, wobei "STARTNUM" der INDEX ist und die gefundene Ansible-Version der entsprechende Value-Wert
-for i in $(find $DEFAULTPATH -maxdepth 2 -type d -iname 'ansible_*' | awk -F '/' '{print $NF}'); do echo -e "[${GREEN}$STARTNUM${RESET}]: $i";arr[$STARTNUM]=$i; STARTNUM=$(( STARTNUM+1 )); done
+for i in $(find $DEFAULTPATH -maxdepth 2 -type d -iname 'ansible_*' | awk -F '/' '{print $NF}'); do echo -e "[${GREEN}${STARTNUM}${RESET}]: $i";arr[${STARTNUM}]=$i; STARTNUM=$(( STARTNUM+1 )); done
 
 # Option "neue Ansible Version anlegen 
 echo -e "[${GREEN}${STARTNUM}${RESET}]: Eine neue Ansible Version installieren";arr[${STARTNUM}]="neue_version";STARTNUM=$(( STARTNUM+1 ))
 # Die aktuelle Developer-Version wird installiert, bei jeder Ausführung wird neu das git-Repo geklont und damit gearbeitet
 echo -e "[${GREEN}${STARTNUM}${RESET}]: Die aktuellste Developer Version installieren";arr[${STARTNUM}]="install_dev";STARTNUM=$(( STARTNUM+1 ))
 # Abbruch-Option eingebaut
-echo -e "[${RED}$STARTNUM${RESET}]: Abbruch";arr[$STARTNUM]="ende"
+echo -e "[${RED}${STARTNUM}${RESET}]: Abbruch";arr[${STARTNUM}]="ende"
 # Abfrage der gewünschten Option
 echo -e "Option?"
 # Eingabe wird nicht weiter angezeigt (-s) und direkt ausgewertet (-n 1)
@@ -80,9 +80,9 @@ then
   echo "Welche Ansible Version soll eingerichtet werden?"
   read VERSION
   # Wenn keine Version angegeben wird, wird der oben eingerichetete Default-Wert verwendet
-  if [[ "$VERSION" == "" ]] ; 
+  if [[ "${VERSION}" == "" ]] ; 
   then
-    VERSION=$DEFAULTANSIBLEVERSION
+    VERSION=${DEFAULTANSIBLEVERSION}
   fi
   INVENTORYDIR=$DEFAULTPATH
   # Ab hier beginnt das "reguläre" Installationsscript, welches die Ansible-Version in einem Virtualdev installiert
