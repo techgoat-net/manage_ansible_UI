@@ -10,3 +10,7 @@
 * Starten beliebiger Ansible-Versionen
 * Installation der Ansible-Developer-Version
 
+#### Folgende Pakete sollten installiert sein
+* pip
+* python-setuptools
+* python-virtualenv
