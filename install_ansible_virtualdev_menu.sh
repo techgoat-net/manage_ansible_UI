@@ -12,7 +12,7 @@
 
 ### Defaultwerte ###
 DEFAULTUSER="rasputin"
-DEFAULTPATH="/home/$DEFAULTUSER/Ansible"
+DEFAULTPATH="/home/${DEFAULTUSER}/Ansible"
 DEFAULTANSIBLEVERSION="2.7.0"
 GREEN='\e[32m'     
 RED='\e[31m'
@@ -31,7 +31,7 @@ STARTNUM=0
 
 # Auslesen des Verzeichnisses (per for-loop)  und auflisten der verfügbaren Ansible-Versionen
 # Hierbei wird ein Array angelegt, wobei "STARTNUM" der INDEX ist und die gefundene Ansible-Version der entsprechende Value-Wert
-for i in $(find $DEFAULTPATH -maxdepth 2 -type d -iname 'ansible_*' | awk -F '/' '{print $NF}'); do echo -e "[${GREEN}${STARTNUM}${RESET}]: $i";arr[${STARTNUM}]=$i; STARTNUM=$(( STARTNUM+1 )); done
+for i in $(find ${DEFAULTPATH} -maxdepth 2 -type d -iname 'ansible_*' | awk -F '/' '{print $NF}'); do echo -e "[${GREEN}${STARTNUM}${RESET}]: $i";arr[${STARTNUM}]=$i; STARTNUM=$(( STARTNUM+1 )); done
 
 # Option "neue Ansible Version anlegen 
 echo -e "[${GREEN}${STARTNUM}${RESET}]: Eine neue Ansible Version installieren";arr[${STARTNUM}]="neue_version";STARTNUM=$(( STARTNUM+1 ))
@@ -84,7 +84,7 @@ then
   then
     VERSION=${DEFAULTANSIBLEVERSION}
   fi
-  INVENTORYDIR=$DEFAULTPATH
+  INVENTORYDIR=${DEFAULTPATH}
   # Ab hier beginnt das "reguläre" Installationsscript, welches die Ansible-Version in einem Virtualdev installiert
   while getopts ":v:h" opt; do
     case ${opt} in
